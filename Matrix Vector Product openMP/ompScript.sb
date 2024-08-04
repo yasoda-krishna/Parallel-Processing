@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --job-name="mv"
+#SBATCH --output="output.%j.%N.out"
+#SBATCH --partition=compute
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=24
+#SBATCH --mem=4G
+#SBATCH --account=isu102
+#SBATCH --export=ALL
+#SBATCH -t 00:30:00
+
+
+module load intel mvapich2
+#Run the job
+./mv 1 10000 10000
+./mv 2 10000 10000
+./mv 5 10000 10000
+./mv 10 10000 10000
+
+

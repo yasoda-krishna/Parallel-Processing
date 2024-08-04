@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH --job-name="hy_mv"
+#SBATCH --output="MVoutput.%j.%N.out"
+#SBATCH --partition=compute
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=24
+#SBATCH --mem=8G
+#SBATCH --account=isu102
+#SBATCH --export=ALL
+#SBATCH -t 00:30:00
+
+module purge 
+module load cpu
+module load slurm
+
+export OMP_NUM_THREADS=1
+srun -n 2 ./hy_mv 16000
+export OMP_NUM_THREADS=2
+srun -n 2 ./hy_mv 16000
+export OMP_NUM_THREADS=4
+srun -n 2 ./hy_mv 16000
+export OMP_NUM_THREADS=10
+srun -n 2 ./hy_mv 16000
+
+export OMP_NUM_THREADS=1
+srun -n 4 ./hy_mv 16000
+export OMP_NUM_THREADS=2
+srun -n 4 ./hy_mv 16000
+export OMP_NUM_THREADS=4
+srun -n 4 ./hy_mv 16000
+export OMP_NUM_THREADS=10
+srun -n 4 ./hy_mv 16000
+
